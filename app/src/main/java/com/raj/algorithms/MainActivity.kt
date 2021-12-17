@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import com.raj.algorithms.databinding.ActivityMainBinding
+import com.raj.algorithms.sorting.Sortings
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+        Sortings.selectionSort(arrayOf(10,5,4,6,2,7,1))
+        Sortings.bubbleSort(arrayOf(10,5,4,6,2,7,1))
+        Sortings.insertionSort(arrayOf(10,5,4,6,2,7,1))
+        val array =arrayOf(10,5,4,6,2,7,1)
+        Sortings.mergeSort(array,0,array.size-1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
