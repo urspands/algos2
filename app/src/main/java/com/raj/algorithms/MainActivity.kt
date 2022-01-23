@@ -1,7 +1,6 @@
 package com.raj.algorithms
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.raj.algorithms.databinding.ActivityMainBinding
-import com.raj.algorithms.sorting.Sortings
+import com.raj.algorithms.sorting.TreesProb
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 //        Sortings.groupTheNumbers(arrayOf(8,4,9,5,2,9,5,7,10))
 //        Sortings.mergerFirstIntoSecond(arrayOf(1, 3, 5), arrayOf(2, 4, 6, 0, 0, 0))
 //        Sortings.orderRGB(arrayOf('R','B','R','G','B','R','R','G'))
-        Sortings.orderRGB(arrayOf('G', 'B', 'G', 'G', 'R', 'B', 'R', 'G'))
+//        Sortings.orderRGB(arrayOf('G', 'B', 'G', 'G', 'R', 'B', 'R', 'G'))
+//        Trees.runTreeProblemFunctions()
+        TreesProb.testProb()
 
     }
 
