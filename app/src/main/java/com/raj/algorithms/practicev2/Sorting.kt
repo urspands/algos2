@@ -51,22 +51,38 @@ fun main() {
 //        )
 //    )
 //    println("superDigit::${superDigit("9875", 4)}")
-    println("isBalanced::${isBalanced("{(([])[])[]}")}")
+    println("isBalanced::${isBalanced("{(([])[])[]}{}")}")
 }
 
 fun isBalanced(s: String): String {
     // Write your code here
     var i = 0
     var j = s.length - 1
-    while (i < j) {
-        println()
-        if ((s[i] == '{' && s[j] != '}') ||
-            (s[i] == '(' && s[j] != ')') ||
-            (s[i] == '[' && s[j] != ']')) {
-            return "NO"
+    val stack = Stack<Char>()
+    s.forEach {
+        when (it) {
+            '(', '[', '{' -> stack.add(it)
+            else -> {
+                if (stack.isEmpty()) {
+                    return "NO"
+                } else {
+                    val topItem = stack.pop()
+                    if (it == ')') {
+                        if (topItem != '(') {
+                            return "NO"
+                        }
+                    } else if (it == ']') {
+                        if (topItem != '[') {
+                            return "NO"
+                        }
+                    } else if (it == '}') {
+                        if (topItem != '{') {
+                            return "NO"
+                        }
+                    }
+                }
+            }
         }
-        i++
-        j--
     }
     return "YES"
 }
