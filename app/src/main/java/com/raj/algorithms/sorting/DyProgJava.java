@@ -1,6 +1,5 @@
 package com.raj.algorithms.sorting;
 
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +10,11 @@ public class DyProgJava {
     public static void equalSumSubsetPartition(int[] array) {
         int sum = Arrays.stream(array).sum();
         if (sum % 2 != 0) {
-            Log.d(TAG, "equalSumSubsetPartition: false");
+            System.out.println("equalSumSubsetPartition: false");
         } else {
             int subsetSum = sum / 2;
             int length = array.length;
-            Log.d(TAG, "equalSumSubsetPartition: " + equalSumSubsetPartitionHelper(array, length, subsetSum));
+            System.out.println("equalSumSubsetPartition: " + equalSumSubsetPartitionHelper(array, length, subsetSum));
         }
     }
 
@@ -39,7 +38,7 @@ public class DyProgJava {
             Arrays.fill(memo[i], -1);
         }
         int count = editDistanceHelper(str1.toCharArray(), str2.toCharArray(), 0, 0, memo);
-        Log.d(TAG, "editDistance: " + count);
+        System.out.println("editDistance: " + count);
         dynamicEditDistance(str1, str2);
     }
 
@@ -80,7 +79,7 @@ public class DyProgJava {
                 }
             }
         }
-        Log.d(TAG, "dynamicEditDistance: " + dp[str1.length()][str2.length()]);
+        System.out.println("dynamicEditDistance: " + dp[str1.length()][str2.length()]);
         return dp[str1.length()][str2.length()];
     }
 
@@ -95,7 +94,7 @@ public class DyProgJava {
             add(0);
         }};
         count_ways_to_climbHelper(steps, n, count);
-        Log.d(TAG, "count_ways_to_climb: " + count.get(0));
+        System.out.println("count_ways_to_climb: " + count.get(0));
         return 0;
     }
 
@@ -126,24 +125,24 @@ public class DyProgJava {
         }
         int count = minimum_coinsHelper(coins, coins.size(), value, memo);
 
-        Log.d(TAG, "minimum_coins: " + count);
+        System.out.println("minimum_coins: " + count);
 
     }
 
     static Integer minimum_coinsHelper(ArrayList<Integer> coins, Integer coinsIndex, Integer value, int[][] memo) {
-        Log.d(TAG, "minimum_coinsHelper: value ::" + value);
+        System.out.println("minimum_coinsHelper: value ::" + value);
         if (value == 0) {
-            Log.d(TAG, "minimum_coinsHelper: returning 0 for value 0 and coinsIndex :" + coinsIndex);
+            System.out.println("minimum_coinsHelper: returning 0 for value 0 and coinsIndex :" + coinsIndex);
             return 0;
         }
         if (value < 0) {
-            Log.d(TAG, "minimum_coinsHelper: returning Integer.MAX_VALUE for value ::" + value
+            System.out.println("minimum_coinsHelper: returning Integer.MAX_VALUE for value ::" + value
                     + " and coinsIndex :" + coinsIndex);
             return 10000;
         }
-        Log.d(TAG, "minimum_coinsHelper: coinsIndex::" + coinsIndex);
+        System.out.println("minimum_coinsHelper: coinsIndex::" + coinsIndex);
         if (coinsIndex == 0) {
-            Log.d(TAG, "minimum_coinsHelper: returning 0 for coinsIndex 0 and value :" + value);
+            System.out.println("minimum_coinsHelper: returning 0 for coinsIndex 0 and value :" + value);
             return 100000;
         }
         int count = -1;
@@ -153,7 +152,7 @@ public class DyProgJava {
         }
         count = memo[coinsIndex][value];
 
-        Log.d(TAG, "minimum_coinsHelper: count::" + count);
+        System.out.println("minimum_coinsHelper: count::" + count);
         return count;
     }
 
@@ -180,7 +179,7 @@ public class DyProgJava {
            Arrays.fill(row, -1);
        }
         boolean returnValue = can_reach_last_houseHelper(maximum_jump_lengths, maximum_jump_lengths.size() - 1, 0, retValue);
-        Log.d(TAG, "can_reach_last_house: " + returnValue);
+        System.out.println("can_reach_last_house: " + returnValue);
         return returnValue;
     }
 

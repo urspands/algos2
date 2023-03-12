@@ -11,7 +11,7 @@ object Recursion {
         fun helper(s: String, pos: Int, slate: String, lastString: String) {
             if (pos == s.length) {
                 val isPalindrome = isPalindrome(lastString)
-//                Log.d(TAG, "helper:isPalindrome->${isPalindrome}:: lastString->$lastString ")
+//                System.out.println("helper:isPalindrome->${isPalindrome}:: lastString->$lastString ")
                 if (isPalindrome) {
                     Log.d(
                         TAG,
@@ -161,7 +161,7 @@ object Recursion {
         }
 
         helper(0,arrayListOf())
-        Log.d(TAG, "find_all_arrangements: $temp")
+        System.out.println("find_all_arrangements: $temp")
         temp.forEach{
             val arr = ArrayList<String>()
             for( i in 0..n-1){
@@ -177,7 +177,7 @@ object Recursion {
             }
             retVal.add(arr)
         }
-        Log.d(TAG, "find_all_arrangements: $retVal")
+        System.out.println("find_all_arrangements: $retVal")
         return retVal
     }
 

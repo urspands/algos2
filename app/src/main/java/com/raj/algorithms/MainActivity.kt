@@ -38,26 +38,26 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        Recursion.generate_palindromic_decompositions("abracadabra")
-        val board = arrayListOf(
-            arrayListOf(8, 4, 9, 0, 0, 3, 5, 7, 0),
-            arrayListOf(0, 1, 0, 0, 0, 0, 0, 0, 0),
-            arrayListOf(7, 0, 0, 0, 9, 0, 0, 8, 3),
-            arrayListOf(0, 0, 0, 9, 4, 6, 7, 0, 0),
-            arrayListOf(0, 8, 0, 0, 5, 0, 0, 4, 0),
-            arrayListOf(0, 0, 6, 8, 7, 2, 0, 0, 0),
-            arrayListOf(5, 7, 0, 0, 1, 0, 0, 0, 4),
-            arrayListOf(0, 0, 0, 0, 0, 0, 0, 1, 0),
-            arrayListOf(0, 2, 1, 7, 0, 0, 8, 6, 5),
-        )
-        val api = OfferApi()
-        Log.d(TAG, "onCreate:makeBuyOffer: ${api.makeBuyOffer(95)}")
-        Log.d(TAG, "onCreate:makeSellOffer: ${api.makeSellOffer(105)}")
-        Log.d(TAG, "onCreate:makeBuyOffer: ${api.makeBuyOffer(101)}")
-        Log.d(TAG, "onCreate:makeSellOffer: ${api.makeSellOffer(90)}")
-        Log.d(TAG, "onCreate:makeSellOffer: ${api.makeSellOffer(97)}")
-        Log.d(TAG, "onCreate:buyList: ${api.getBuyList()}")
-        Log.d(TAG, "onCreate:sellList: ${api.getSellList()}")
+//        Recursion.generate_palindromic_decompositions("abracadabra")
+//        val board = arrayListOf(
+//            arrayListOf(8, 4, 9, 0, 0, 3, 5, 7, 0),
+//            arrayListOf(0, 1, 0, 0, 0, 0, 0, 0, 0),
+//            arrayListOf(7, 0, 0, 0, 9, 0, 0, 8, 3),
+//            arrayListOf(0, 0, 0, 9, 4, 6, 7, 0, 0),
+//            arrayListOf(0, 8, 0, 0, 5, 0, 0, 4, 0),
+//            arrayListOf(0, 0, 6, 8, 7, 2, 0, 0, 0),
+//            arrayListOf(5, 7, 0, 0, 1, 0, 0, 0, 4),
+//            arrayListOf(0, 0, 0, 0, 0, 0, 0, 1, 0),
+//            arrayListOf(0, 2, 1, 7, 0, 0, 8, 6, 5),
+//        )
+//        val api = OfferApi()
+//        System.out.println("onCreate:makeBuyOffer: ${api.makeBuyOffer(95)}")
+//        System.out.println("onCreate:makeSellOffer: ${api.makeSellOffer(105)}")
+//        System.out.println("onCreate:makeBuyOffer: ${api.makeBuyOffer(101)}")
+//        System.out.println("onCreate:makeSellOffer: ${api.makeSellOffer(90)}")
+//        System.out.println("onCreate:makeSellOffer: ${api.makeSellOffer(97)}")
+//        System.out.println("onCreate:buyList: ${api.getBuyList()}")
+//        System.out.println("onCreate:sellList: ${api.getSellList()}")
 //        Recursion.solve_sudoku_puzzle(board)
 //        Recursion.find_all_arrangements(4)
 //        Sortings.rotate(intArrayOf(1,2,3,4,5,6,7),3)

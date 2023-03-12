@@ -78,7 +78,7 @@ public class TreesProb {
         TreeNode root = build_tree(from, to);
 
         int res = find_height(root);
-        Log.d(TAG, "Solution: " + res);
+        System.out.println("Solution: " + res);
 //        bw.write(String.valueOf(res));
 //        bw.newLine();
 //

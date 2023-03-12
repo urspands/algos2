@@ -8,7 +8,7 @@ object DynamicProgramming {
         val memo = ArrayList<Int>()
         memo.add(0, 0)
         memo.add(1, 1)
-        Log.d(TAG, "fibonacci: ${fib(n, memo)}")
+        System.out.println("fibonacci: ${fib(n, memo)}")
     }
 
     private fun fib(n: Int, memo: ArrayList<Int>): Int {
@@ -35,7 +35,7 @@ object DynamicProgramming {
                 table[row][col] = table[row - 1][col] + table[row][col - 1]
             }
         }
-        Log.d(TAG, "countUniquePath: ${table[mRow - 1][nCol - 1]}")
+        System.out.println("countUniquePath: ${table[mRow - 1][nCol - 1]}")
     }
 
     //priceArray={0,1,2,3,5,10}

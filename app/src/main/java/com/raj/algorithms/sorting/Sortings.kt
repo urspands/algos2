@@ -19,7 +19,7 @@ object Sortings {
             }
             swap(array, i, minNumIndex)
         }
-        Log.d(TAG, "selectionSort: ${array.contentToString()}")
+        System.out.println("selectionSort: ${array.contentToString()}")
         return array
     }
 
@@ -40,7 +40,7 @@ object Sortings {
                 j--
             }
         }
-        Log.d(TAG, "bubbleSort: ${array.contentToString()}")
+        System.out.println("bubbleSort: ${array.contentToString()}")
         return array
     }
 
@@ -55,13 +55,13 @@ object Sortings {
             }
             array[j + 1] = curElementToInsertInItsPos
         }
-        Log.d(TAG, "insertionSort: ${array.contentToString()}")
+        System.out.println("insertionSort: ${array.contentToString()}")
         return array
     }
 
     fun mergeSort(array: Array<Int>, start: Int, end: Int): Array<Int> {
         val sortedArray = mergeSorting(array, start, end)
-        Log.d(TAG, "mergeSort: ${sortedArray.contentToString()}")
+        System.out.println("mergeSort: ${sortedArray.contentToString()}")
         return sortedArray
     }
 
@@ -111,7 +111,7 @@ object Sortings {
             val total = array[start] + array[end]
             when {
                 total == target -> {
-                    Log.d(TAG, "findIf2NumSumExists: Exists: true")
+                    System.out.println("findIf2NumSumExists: Exists: true")
                     return true
                 }
                 total > target -> {
@@ -120,7 +120,7 @@ object Sortings {
                 else -> start++
             }
         }
-        Log.d(TAG, "findIf2NumSumExists: Exists: false")
+        System.out.println("findIf2NumSumExists: Exists: false")
         return false
     }
 
@@ -129,12 +129,12 @@ object Sortings {
         hashSet.addAll(array)
         for (num in array) {
             if (hashSet.contains(target - num)) {
-                Log.d(TAG, "findIf2NumSumExistsUsingHashSet: Exists: true")
+                System.out.println("findIf2NumSumExistsUsingHashSet: Exists: true")
                 return true
             }
         }
 
-        Log.d(TAG, "findIf2NumSumExistsUsingHash: Exists: false")
+        System.out.println("findIf2NumSumExistsUsingHash: Exists: false")
         return false
     }
 
@@ -150,20 +150,20 @@ object Sortings {
                 retVal[0] = hashMap.filter { it.value == target - array[i] }.keys.first()
             }
         }
-        Log.d(TAG, "findIf2NumSumExistsReturnIndices: ${retVal.contentToString()}")
+        System.out.println("findIf2NumSumExistsReturnIndices: ${retVal.contentToString()}")
         return retVal
     }
 
     fun canAttendMeeting(array: Array<Array<Int>>): Boolean {
         array.sortBy { it[0] }
-        Log.d(TAG, "canAttendMeeting: ${array.contentDeepToString()}")
+        System.out.println("canAttendMeeting: ${array.contentDeepToString()}")
         for (i in 0..array.size - 2) {
             if (array[i][1] > array[i + 1][0]) {
-                Log.d(TAG, "canAttendMeeting: false")
+                System.out.println("canAttendMeeting: false")
                 return false
             }
         }
-        Log.d(TAG, "canAttendMeeting: true")
+        System.out.println("canAttendMeeting: true")
         return true
     }
 
@@ -191,7 +191,7 @@ object Sortings {
                 }
             }
         }
-        Log.d(TAG, "find3numbsSumsTo0:${retVal.toArray().contentDeepToString()}")
+        System.out.println("find3numbsSumsTo0:${retVal.toArray().contentDeepToString()}")
     }
 
     fun intersectionOf3SortedArrays(
@@ -222,7 +222,7 @@ object Sortings {
                 }
             }
         }
-        Log.d(TAG, "intersectionOf3SortedArrays: ${retval.contentToString()}")
+        System.out.println("intersectionOf3SortedArrays: ${retval.contentToString()}")
         return retval
     }
 
@@ -254,7 +254,7 @@ object Sortings {
                 j--
             }
         }
-        Log.d(TAG, "groupTheNumbers: ${array.contentToString()}")
+        System.out.println("groupTheNumbers: ${array.contentToString()}")
     }
 
     fun mergeSortPr(array: Array<Int>, start: Int, end: Int): Array<Int> {
@@ -315,7 +315,7 @@ object Sortings {
             arr2EndPtr--
             arr1EndPtr--
         }
-        Log.d(TAG, "mergerFirstIntoSecond: ${array2.contentToString()}")
+        System.out.println("mergerFirstIntoSecond: ${array2.contentToString()}")
         return array2
     }
 
@@ -326,18 +326,18 @@ object Sortings {
 //            ptr++
 //        }
 
-        Log.d(TAG, "ptr ::$ptr");
+        System.out.println("ptr ::$ptr");
         while (ptr <= endPtr) {
-            Log.d(TAG, "R loop::" + arr.contentToString());
-            Log.d(TAG, "R loop::ptr ::$ptr");
-            Log.d(TAG, "R loop::endPtr ::$endPtr");
+            System.out.println("R loop::" + arr.contentToString());
+            System.out.println("R loop::ptr ::$ptr");
+            System.out.println("R loop::endPtr ::$endPtr");
             while (arr[ptr] == 'R') {
                 ptr++;
             }
             if (arr[endPtr] == 'R') {
 
-                Log.d(TAG, "Before swapping::ptr ::$ptr || endPtr :: $endPtr");
-                Log.d(TAG, "SWAPPING::" + arr[ptr] + " && " + arr[endPtr])
+                System.out.println("Before swapping::ptr ::$ptr || endPtr :: $endPtr");
+                System.out.println("SWAPPING::" + arr[ptr] + " && " + arr[endPtr])
                 val tmp = arr[ptr]
                 arr[ptr] = arr[endPtr]
                 arr[endPtr] = tmp
@@ -349,18 +349,18 @@ object Sortings {
 //        while(arr[ptr]=='G'){
 //            ptr++;
 //        }
-        Log.d(TAG, "ptr ::$ptr");
+        System.out.println("ptr ::$ptr");
         while (ptr <= endPtr) {
-            Log.d(TAG, "G loop::" + arr.contentToString())
-            Log.d(TAG, "G loop::ptr ::$ptr")
-            Log.d(TAG, "G loop::endPtr ::$endPtr")
+            System.out.println("G loop::" + arr.contentToString())
+            System.out.println("G loop::ptr ::$ptr")
+            System.out.println("G loop::endPtr ::$endPtr")
             while (arr[ptr] == 'G') {
                 ptr++
             }
             if (arr[endPtr] == 'G') {
 
-                Log.d(TAG, "Before swapping::ptr ::$ptr || endPtr :: $endPtr");
-                Log.d(TAG, "SWAPPING::" + arr[ptr] + " && " + arr[endPtr])
+                System.out.println("Before swapping::ptr ::$ptr || endPtr :: $endPtr");
+                System.out.println("SWAPPING::" + arr[ptr] + " && " + arr[endPtr])
                 val tmp = arr[ptr]
                 arr[ptr] = arr[endPtr]
                 arr[endPtr] = tmp
@@ -369,7 +369,7 @@ object Sortings {
             endPtr--
         }
 
-        Log.d(TAG, arr.contentDeepToString());
+        System.out.println(arr.contentDeepToString());
     }
 
     fun test() {
@@ -380,12 +380,12 @@ object Sortings {
         val string4 = "bbabylkkj";
         val string5 = "ccc";
         val string6 = "breadmaking";
-        Log.d(TAG, find_embedded_word(words, string1));
-        Log.d(TAG, find_embedded_word(words, string2));
-        Log.d(TAG, find_embedded_word(words, string3));
-        Log.d(TAG, find_embedded_word(words, string4));
-        Log.d(TAG, find_embedded_word(words, string5));
-        Log.d(TAG, find_embedded_word(words, string6));
+        System.out.println(find_embedded_word(words, string1));
+        System.out.println(find_embedded_word(words, string2));
+        System.out.println(find_embedded_word(words, string3));
+        System.out.println(find_embedded_word(words, string4));
+        System.out.println(find_embedded_word(words, string5));
+        System.out.println(find_embedded_word(words, string6));
     }
 
     fun find_embedded_word(words: Array<String>, matchWord: String): String {
@@ -435,9 +435,9 @@ object Sortings {
     fun dutchProb() {
         val result = dutch_flag_sort(arrayListOf( 'B',  'R', 'G'))
 //        val result = dutch_flag_sort(arrayListOf('G', 'B', 'G', 'G', 'R', 'B', 'R', 'G'))
-//        Log.d(TAG, "dutchProb: ${result.toString()}")
-//        Log.d(TAG, " find_integer:: ${find_integer(arrayListOf(4,6,7,1,3,4))}")
-        Log.d(TAG, " nearest_neighbours:: ${nearest_neighbours(1,1,1, arrayListOf(arrayListOf(1,0),
+//        System.out.println("dutchProb: ${result.toString()}")
+//        System.out.println(" find_integer:: ${find_integer(arrayListOf(4,6,7,1,3,4))}")
+        System.out.println(" nearest_neighbours:: ${nearest_neighbours(1,1,1, arrayListOf(arrayListOf(1,0),
             arrayListOf(0,0)))}")
     }
 
@@ -504,7 +504,7 @@ open fun find_integer(arr: ArrayList<Long>): Long? {
         val tempPairArray = ArrayList<Pair<Double,ArrayList<Int>>>()
         n_points.forEach{
             val distance = getDistance(p_x,p_y,it[0],it[1])
-            Log.d(TAG, "nearest_neighbours: distance->$distance :: pair ->$it")
+            System.out.println("nearest_neighbours: distance->$distance :: pair ->$it")
             val pairObj = Pair(distance,it)
             tempPairArray.add(pairObj)
         }
@@ -548,8 +548,8 @@ open fun find_integer(arr: ArrayList<Long>): Long? {
             var n=j
             while(m<n){
                 val temp = nums[m]
-                Log.d(TAG, "reverse: m:$m")
-                Log.d(TAG, "reverse: n:$n")
+                System.out.println("reverse: m:$m")
+                System.out.println("reverse: n:$n")
                 nums[m]=nums[n]
                 nums[n]=temp
                 m++
@@ -581,7 +581,7 @@ open fun find_integer(arr: ArrayList<Long>): Long? {
             }
 
         }
-        Log.d(TAG, "twoSum: ${retVal.contentToString()}")
+        System.out.println("twoSum: ${retVal.contentToString()}")
         return retVal
 
     }
