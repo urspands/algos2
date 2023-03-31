@@ -318,7 +318,35 @@ object Sortings {
         System.out.println("mergerFirstIntoSecond: ${array2.contentToString()}")
         return array2
     }
+    fun dutch_flag_sort(balls: ArrayList<Char>): ArrayList<Char> {
 
+        var i =0
+        var rInsrtPtr=0
+        var bInsrtPtr=balls.size-1
+        while(i<=bInsrtPtr){
+            if(balls[i]=='R'){
+                swap(balls,i,rInsrtPtr)
+                rInsrtPtr++
+                i++
+            }
+            else if(balls[i]=='G'){
+                i++
+            }
+
+            else{
+                swap(balls,i,bInsrtPtr)
+                bInsrtPtr--
+            }
+
+
+        }
+        return balls
+    }
+    fun swap(balls: ArrayList<Char>, pos1:Int,pos2:Int){
+        val temp = balls[pos1]
+        balls[pos1]= balls[pos2]
+        balls[pos2] = temp
+    }
     fun orderRGB(arr: Array<Char>) {
         var ptr = 0
         var endPtr = arr.size - 1
@@ -403,7 +431,6 @@ object Sortings {
             var count = 0;
             val hashMap = getHashMap(matchWord)
             for (character in word) {
-
                 val value = hashMap[character] ?: 0
                 if (!hashMap.containsKey(character) || (value <= 0)) {
                     break;
@@ -441,40 +468,6 @@ object Sortings {
             arrayListOf(0,0)))}")
     }
 
-
-    fun dutch_flag_sort(balls: ArrayList<Char>): ArrayList<Char> {
-        // Write your code here.
-        var bInsertPtr= balls.size-1
-        var rInsertPtr= 0
-        var currentPtr=0
-        while(currentPtr<bInsertPtr){
-
-
-            when {
-                balls[currentPtr] =='R' -> {
-                    val temp = balls[currentPtr]
-                    balls[currentPtr]=balls[rInsertPtr]
-                    balls[rInsertPtr]=temp
-                    rInsertPtr++
-                    currentPtr++
-                }
-                balls[currentPtr] =='G' -> {
-                    currentPtr++
-                }
-                else -> {
-                    val temp = balls[currentPtr]
-                    balls[currentPtr]=balls[bInsertPtr]
-                    balls[bInsertPtr]=temp
-                    bInsertPtr--
-                }
-            }
-
-
-        }
-        return balls
-    }
-
-
 open fun find_integer(arr: ArrayList<Long>): Long? {
     val size = (2.0.pow(32.0) / 8).toInt()
     val bytes = ByteArray(size) // Initialized with zeros by the JVM.
@@ -508,7 +501,7 @@ open fun find_integer(arr: ArrayList<Long>): Long? {
             val pairObj = Pair(distance,it)
             tempPairArray.add(pairObj)
         }
-        tempPairArray.sortWith(compareBy({it.first}))
+        tempPairArray.sortWith(compareBy { it.first })
         for(i in 0 until k){
             retVal.add(tempPairArray[i].second)
         }

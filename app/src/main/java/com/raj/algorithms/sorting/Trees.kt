@@ -34,6 +34,7 @@ fun runPractice2() {
     isValuesInTreeUniquePractice2(node)
 //    convertBSTToCircularDoubleLinkedListPractice2(node)
     isBSTPractice2(node)
+    moveZerosToEnd(mutableListOf(0,0,5,0,2,10))
 
 }
 
@@ -241,6 +242,37 @@ fun pathSumExistsAndPathHelperPractice2(
         currPath.removeLast()
     }
 
+}
+
+
+// Given an array of integers, move all 0's to the end
+// Input: [0,0,5,0,2,10]
+// Output: [5,2,10,0,0,0]
+
+
+fun moveZerosToEnd(input:MutableList<Int>){
+    var insertPointer=0
+    var idx =0
+    while(idx<input.size){
+        //   while(idx<input.size && input[idx]==0 ){
+        //       idx++
+        //   }
+        if(input[idx]!=0){
+            if(idx<input.size){
+                swap(input, insertPointer, idx)
+                insertPointer++
+            }
+
+        }
+        idx++
+    }
+    println(input)
+}
+fun swap(input:MutableList<Int>, pos1:Int, pos2:Int){
+    println("swap ::$pos1:: $pos2")
+    var temp = input[pos1]
+    input[pos1] =input[pos2]
+    input[pos2]=temp
 }
 
 fun isValuesInTreeUniquePractice2(node: Node?) {

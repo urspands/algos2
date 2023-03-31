@@ -2,6 +2,7 @@ package com.raj.algorithms.practicev2
 
 import java.math.BigInteger
 import java.util.*
+import kotlin.Comparator
 import kotlin.collections.ArrayDeque
 import kotlin.system.measureTimeMillis
 
@@ -52,7 +53,32 @@ fun main() {
 //    )
 //    println("superDigit::${superDigit("9875", 4)}")
     println("isBalanced::${isBalanced("{(([])[])[]}{}")}")
+    println(
+        "find_top_k_frequent_elements::${
+            find_top_k_frequent_elements(
+                arrayListOf(
+                    1,
+                    2,
+                    3,
+                    2,
+                    4,
+                    3,
+                    1
+                ), 2
+            )
+        }"
+    )
+    var head = ListNode(1)
+    head.next= ListNode(2)
+    head.next!!.next=ListNode(3)
+    head.next!!.next!!.next=ListNode(4)
+    head.next!!.next!!.next!!.next=ListNode(5)
+
+    removeNthFromEnd(head,2)
+//    checkInclusion()
+    println(arrayOf(1,2).contentEquals( arrayOf(1,2)))
 }
+
 
 fun isBalanced(s: String): String {
     // Write your code here
@@ -304,3 +330,541 @@ fun <T> MutableList<T>.swap(pos1: Int, pos2: Int) {
     this[pos1] = this[pos2]
     this[pos2] = temp
 }
+
+/*
+ * Complete the 'palindromeIndex' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts STRING s as parameter.
+ */
+
+fun palindromeIndex(s: String): Int {
+    // Write your code here
+    var returnVal = -1
+    if (isPalindrome(s)) {
+        return returnVal
+    } else {
+        var start = 0
+        var end = s.length - 1
+        while (start <= end) {
+            if (s[start] != s[end]) {
+                var newInput =
+                    s.subSequence(0, start).toString() + s.subSequence(start + 1, s.length)
+                if (isPalindrome(newInput)) {
+                    return start
+                } else {
+                    newInput = s.subSequence(0, end).toString() + s.subSequence(end + 1, s.length)
+                    if (isPalindrome(newInput)) {
+                        return end
+                    }
+                }
+            }
+            start++
+            end--
+        }
+        return -1
+    }
+
+}
+
+fun isPalindrome(input: String): Boolean {
+    var start = 0
+    var end = input.length - 1
+    while (start <= end) {
+        if (input[start] != input[end]) {
+            return false
+        }
+        start++
+        end--
+    }
+    return true
+}
+
+
+class LinkedListNode(value: Int) {
+    var value: Int?
+    var next: LinkedListNode?
+
+    init {
+        this.value = value
+        next = null
+    }
+}
+
+fun merge_k_lists(lists: ArrayList<LinkedListNode?>): LinkedListNode? {
+    var head: LinkedListNode? = null
+//    val comparator: Comparator<Input> = compareBy{it.data}
+    val comparator: Comparator<Input> =
+        Comparator<Input> { p0, p1 ->
+            when {
+                p0?.data != p1?.data -> p0?.data!!.minus(p1?.data!!)
+                else -> p0!!.data!!.compareTo(p1!!.data!!)
+            }
+        }
+
+    val minHeap = PriorityQueue<Input>(comparator)
+    for (i in lists.indices) {
+        minHeap.add(Input(lists[i]?.value!!, lists[i]))
+    }
+    var previousNode = head
+    while (minHeap.isNotEmpty()) {
+        val min = minHeap.remove()
+        val currentNode = min
+
+        if (head == null) {
+            head = min.node
+        }
+        if (min.node?.next != null) {
+            minHeap.add(Input(min?.node?.value, min?.node?.next))
+        }
+        currentNode.node?.next = null
+        if (previousNode == null) {
+            previousNode = currentNode.node
+        } else {
+            previousNode.next = currentNode.node
+            previousNode = currentNode.node
+        }
+    }
+    // Write your code here.
+    return head
+}
+
+data class Input(val data: Int?, val node: LinkedListNode?) {
+
+}
+
+fun can_attend_all_meetings(intervals: ArrayList<ArrayList<Int>>): Int {
+    intervals.sortWith(compareBy { it[0] })
+    for (i in 0..intervals.size - 2) {
+        if (intervals[i][1] > intervals[i + 1][0]) {
+            return 0
+        }
+    }
+    return 1
+
+}
+
+fun find_top_k_frequent_elements(arr: ArrayList<Int>, k: Int): ArrayList<Int> {
+
+    val hashMap = HashMap<Int, Int>()
+    arr.forEachIndexed { i, value ->
+        hashMap.put(value, hashMap.getOrDefault(value, 0).plus(1))
+    }
+    val comparator: Comparator<Map.Entry<Int, Int>> =
+        Comparator<Map.Entry<Int, Int>> { p0, p1 -> p1!!.value - p0!!.value }
+    val priorityQueue: PriorityQueue<Map.Entry<Int, Int>> =
+        PriorityQueue<Map.Entry<Int, Int>>(comparator)
+    hashMap.forEach { entry: Map.Entry<Int, Int> ->
+        priorityQueue.add(entry)
+    }
+    val retVal = ArrayList<Int>()
+    for (i in 0..k) {
+        retVal.add(priorityQueue.poll().key)
+    }
+
+// Write your code here.
+    return retVal
+}
+
+fun kth_largest_in_an_array(numbers: ArrayList<Int>, k: Int): Int {
+    // Write your code here.
+    val comparator: Comparator<Int> = Comparator<Int> { p0, p1 -> p1!! - p0!! }
+    val priorityQueue = PriorityQueue<Int>(comparator)
+    numbers.forEach {
+        if (priorityQueue.count() < k) {
+            priorityQueue.add(it)
+        } else {
+            val topValue = priorityQueue.peek()
+            if (it > topValue!!) {
+                priorityQueue.poll()
+                priorityQueue.add(it)
+            }
+        }
+
+    }
+    return priorityQueue.peek()!!
+}
+
+
+fun online_median(stream: ArrayList<Int>): ArrayList<Int> {
+    val retVal = ArrayList<Int>()
+    val minHeap = PriorityQueue<Int>()
+    val maxHeap = PriorityQueue<Int> { a, b -> b - a }
+    var even = true
+    stream.forEach {
+        if (even) {
+            maxHeap.add(it)
+            minHeap.add(maxHeap.poll())
+        } else {
+            minHeap.add(it)
+            maxHeap.add(minHeap.poll())
+        }
+        even = !even
+
+        if (even) {
+            val median = (minHeap.peek() + maxHeap.peek()) / 2
+            retVal.add(median)
+        } else {
+            val median = minHeap.peek()
+            retVal.add(median)
+        }
+
+    }
+
+    return retVal
+}
+
+fun canTransform(start: String, end: String): Boolean {
+    if (start.replace("X", "", true) != end.replace("X", "", true)) {
+        return false
+    }
+    var p1 = 0
+    var p2 = 0
+    while (p1 < start.length && p2 < end.length) {
+        if(start[p1]=='X'){
+            p1++
+        }else if(end[p2]=='X'){
+            p2++
+        }else{
+            if((start[p1]=='R' && p1>p2) ||start[p1]=='L' && p1<p2){
+                return false
+            }
+            p1++
+            p2++
+        }
+
+    }
+    return true
+}
+ fun firstBadVersion(n: Int) : Int {
+    var retVal =1
+//    fun helper(strIdx:Int, endIdx:Int):Int{
+//        if(strIdx>endIdx){
+//            return 1
+//        }
+//        val midIdx = strIdx+((endIdx-strIdx)/2)
+//        val isCurrentBad=isBadVersion(midIdx)
+//        if( isCurrentBad && !isBadVersion(midIdx-1)){
+//            return midIdx
+//        }else{
+//            if(isCurrentBad){
+//                return helper(strIdx,midIdx)
+//            }else{
+//                return helper(midIdx+1,endIdx)
+//            }
+//        }
+//    }
+//    retVal= helper(1,n)
+    return retVal
+}
+fun searchInsert(nums: IntArray, target: Int): Int {
+    var retVal=0
+    fun helper(strtIdx:Int,endIdx:Int):Int{
+        if(strtIdx>endIdx){
+            return strtIdx
+        }
+        val mid = strtIdx + ((endIdx-strtIdx)/2)
+        return when{
+            nums[mid]==target -> return mid
+            nums[mid]<target -> helper(mid+1,endIdx)
+            else -> helper(strtIdx,mid-1)
+        }
+
+    }
+    retVal = helper(0,nums.size-1)
+    return retVal
+}
+//977. Squares of a Sorted Array
+/*Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+
+
+Example 1:
+
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+Example 2:
+
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+*/
+fun sortedSquares(nums: IntArray): IntArray {
+    val retVal = IntArray(nums.size)
+    var fwdPtr=0
+    var bckPtr= nums.size-1
+    var newArrPtr= nums.size-1
+    while(fwdPtr<=bckPtr){
+        val fwdPtrSqVal = Math.pow(nums[fwdPtr].toDouble(),2.toDouble()).toInt()
+        val bckPtrSqVal = Math.pow(nums[bckPtr].toDouble(),2.toDouble()).toInt()
+        retVal[newArrPtr--] = if(fwdPtrSqVal>bckPtrSqVal){
+            fwdPtr++
+            fwdPtrSqVal
+        }else{
+            bckPtr--
+            bckPtrSqVal
+        }
+    }
+    return retVal
+}
+
+/*
+189. Rotate Array
+Medium
+13.4K
+1.6K
+Companies
+Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+
+
+
+Example 1:
+
+Input: nums = [1,2,3,4,5,6,7], k = 3
+Output: [5,6,7,1,2,3,4]
+Explanation:
+rotate 1 steps to the right: [7,1,2,3,4,5,6]
+rotate 2 steps to the right: [6,7,1,2,3,4,5]
+rotate 3 steps to the right: [5,6,7,1,2,3,4]
+Example 2:
+
+Input: nums = [-1,-100,3,99], k = 2
+Output: [3,99,-1,-100]
+Explanation:
+rotate 1 steps to the right: [99,-1,-100,3]
+rotate 2 steps to the right: [3,99,-1,-100]
+
+ */
+fun rotate(nums: IntArray, k: Int): Unit {
+    val size = nums.size
+    val tempArr = IntArray(size)
+    for(i in 0..size-1){
+        tempArr[(i+k)%size] = nums[i]
+    }
+    for(i in 0..size-1){
+        nums[i]=tempArr[i]
+    }
+
+}
+//     fun rotate(nums: IntArray, k: Int): Unit {
+//         fun reverse(i:Int,j:Int){
+//             var m=i
+//             var n=j
+//             while(m<n){
+//                 val temp = nums[m]
+//                 nums[m]=nums[n]
+//                 nums[n]=temp
+//               m++
+//                 n--
+//             }
+//         }
+
+//         val j =k%nums.size
+
+//         reverse(0,nums.size-1)
+//         reverse(0,j-1)
+//         reverse(j,nums.size-1)
+
+//     }
+
+//     fun rotate(nums: IntArray, k: Int): Unit {
+//         var strtIdx=0
+//         var rearIdx= nums.size-1
+//         var swapIdx= nums.size-1-k
+//         var count=0
+//         fun swap(i:Int,j:Int){
+//             val temp = nums[i]
+//             nums[i]=nums[j]
+//             nums[j]=temp
+//     }
+//         while(count<k){
+//             val temp = nums[0]
+//             swap(rearIdx,0)
+//             var i = nums.size-1
+//             while(i>1){
+//                 nums[i]=nums[i-1]
+//                 i--
+//             }
+//             nums[i]=temp
+//             count++
+//         }
+
+//     }
+/*
+167. Two Sum II - Input Array Is Sorted
+Medium
+9.1K
+1.2K
+Companies
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+
+
+Example 1:
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+Example 2:
+
+Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+Example 3:
+
+Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+
+ */
+fun twoSum(numbers: IntArray, target: Int): IntArray {
+    val retVal = IntArray(2)
+
+    var i =0
+    var j=numbers.size-1
+    while(i <j){
+        val sum= numbers[i]+numbers[j]
+
+        if(sum == target){
+            retVal[0]=i+1
+            retVal[1]=j+1
+            break
+        }
+        else if(sum < target ){
+            i++
+        }
+        else{
+            j--
+        }
+
+
+    }
+    return retVal
+
+}
+/*
+557. Reverse Words in a String III
+Easy
+4.7K
+222
+Companies
+Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+
+
+Example 1:
+
+Input: s = "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+Example 2:
+
+Input: s = "God Ding"
+Output: "doG gniD"
+
+
+Constraints:
+
+1 <= s.length <= 5 * 104
+s contains printable ASCII characters.
+s does not contain any leading or trailing spaces.
+There is at least one word in s.
+All the words in s are separated by a single space.
+ */
+//fun reverseWords(s: String): String {
+//    val charArr = s.toCharArray()
+//    fun swap(i:Int,j:Int){
+//        val temp = charArr[i]
+//        charArr[i]=charArr[j]
+//        charArr[j]=temp
+//    }
+//    var i =0
+//    var j =0
+//    val size =charArr.size
+//    while(j<size){
+//        while(j<size && charArr[j]!=' '){
+//            j++
+//        }
+//        j++
+//        var m = j-2
+//        while(i<m){
+//            swap(i,m)
+//            i++
+//            m--
+//        }
+//        i=j
+//    }
+//    return String(charArr)
+//}
+
+fun reverseWords(s: String): String {
+    var words = s.split(" ")
+    fun reverse(str: CharArray): String {
+        var i = 0
+        var j = str.size - 1
+        while (i < j) {
+            val temp = str[i]
+            str[i] = str[j]
+            str[j] = temp
+            i++
+            j--
+        }
+        return String(str)
+    }
+
+    val retVal = StringBuilder()
+    words.forEach {
+        retVal.append(reverse(it.toCharArray()))
+    }
+    return retVal.toString()
+}
+ class ListNode(var value: Int) {
+         var next: ListNode? = null
+ }
+fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
+    if(head==null){
+        return null
+    }
+    var currentNode=head
+    var size =0
+    while(currentNode!=null){
+        currentNode=currentNode?.next
+        size++
+    }
+    currentNode=head
+    var nthNode = size-n
+    var i =0
+    while(i<nthNode){
+        currentNode= currentNode?.next
+        i++
+    }
+    currentNode?.next= currentNode?.next?.next
+    return head
+}
+fun lengthOfLongestSubstring(s: String): Int {
+    var prevLongest = ""
+    var currentSubString=""
+    s.forEachIndexed{i,value ->
+        if(currentSubString.indexOf(value)==-1){
+            currentSubString = currentSubString.plus(value)
+        }else{
+            if(prevLongest.length<currentSubString.length){
+                prevLongest = currentSubString
+            }
+            val repeatCharIdx = currentSubString.indexOf(value)
+            currentSubString = currentSubString.subSequence(repeatCharIdx+1,currentSubString.length).toString()
+            currentSubString = currentSubString.plus(value)
+        }
+    }
+    if(prevLongest.length<currentSubString.length){
+        prevLongest = currentSubString
+    }
+    return prevLongest.length
+}
+

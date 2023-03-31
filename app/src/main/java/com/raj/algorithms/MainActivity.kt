@@ -1,7 +1,6 @@
 package com.raj.algorithms
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.raj.algorithms.databinding.ActivityMainBinding
-import com.raj.algorithms.sorting.OfferApi
-import com.raj.algorithms.sorting.Recursion
 
 class MainActivity : AppCompatActivity() {
     companion object {
