@@ -4,6 +4,7 @@ import java.math.BigInteger
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayDeque
+import kotlin.math.pow
 import kotlin.system.measureTimeMillis
 
 fun main() {
@@ -20,17 +21,17 @@ fun main() {
 //    timeMillis =
 //        measureTimeMillis { println("Merge Sort${mergeSort(inputList, 0, inputList.size - 1)}") }
 //    println("Time to execute Merge Sort:: $timeMillis")
-    timeMillis =
-        measureTimeMillis {
-            println(
-                "twoSumWithSortedArray :: ${
-                    twoSumWithSortedArray(
-                        inputList.toIntArray().sortedArray(),
-                        255
-                    )
-                }"
-            )
-        }
+//    timeMillis =
+//        measureTimeMillis {
+//            println(
+//                "twoSumWithSortedArray :: ${
+//                    twoSumWithSortedArray(
+//                        inputList.toIntArray().sortedArray(),
+//                        255
+//                    )
+//                }"
+//            )
+//        }
 //    println("Time to execute twoSumWithSortedArray:: $timeMillis")
 //    val arr1 = arrayOf(11, 2, 4)
 //    val arr2 = arrayOf(4, 5, 6)
@@ -52,7 +53,7 @@ fun main() {
 //        )
 //    )
 //    println("superDigit::${superDigit("9875", 4)}")
-    println("isBalanced::${isBalanced("{(([])[])[]}{}")}")
+//    println("isBalanced::${isBalanced("{(([])[])[]}{}")}")
     println(
         "find_top_k_frequent_elements::${
             find_top_k_frequent_elements(
@@ -68,15 +69,16 @@ fun main() {
             )
         }"
     )
+    kth_largest_in_an_array(arrayListOf(2,4,1,9,44,23,66,28,54),3)
     var head = ListNode(1)
     head.next= ListNode(2)
     head.next!!.next=ListNode(3)
     head.next!!.next!!.next=ListNode(4)
     head.next!!.next!!.next!!.next=ListNode(5)
 
-    removeNthFromEnd(head,2)
+//    removeNthFromEnd(head,2)
 //    checkInclusion()
-    println(arrayOf(1,2).contentEquals( arrayOf(1,2)))
+//    println(arrayOf(1,2).contentEquals( arrayOf(1,2)))
 }
 
 
@@ -174,7 +176,7 @@ fun caesarCipher(s: String, v: Int): String {
     val charArray = CharArray(s.length)
     val k = v % 26
     s.forEachIndexed { i, value ->
-        if ((value >= 'a' && value <= 'z')) {
+        if ((value in 'a'..'z')) {
             if ('z' - value < k) {
                 charArray[i] = 'a' + (k - 1) - ('z' - value)
             } else {
@@ -452,6 +454,7 @@ fun find_top_k_frequent_elements(arr: ArrayList<Int>, k: Int): ArrayList<Int> {
     }
     val comparator: Comparator<Map.Entry<Int, Int>> =
         Comparator<Map.Entry<Int, Int>> { p0, p1 -> p1!!.value - p0!!.value }
+
     val priorityQueue: PriorityQueue<Map.Entry<Int, Int>> =
         PriorityQueue<Map.Entry<Int, Int>>(comparator)
     hashMap.forEach { entry: Map.Entry<Int, Int> ->
@@ -468,8 +471,8 @@ fun find_top_k_frequent_elements(arr: ArrayList<Int>, k: Int): ArrayList<Int> {
 
 fun kth_largest_in_an_array(numbers: ArrayList<Int>, k: Int): Int {
     // Write your code here.
-    val comparator: Comparator<Int> = Comparator<Int> { p0, p1 -> p1!! - p0!! }
-    val priorityQueue = PriorityQueue<Int>(comparator)
+
+    val priorityQueue = PriorityQueue<Int>()
     numbers.forEach {
         if (priorityQueue.count() < k) {
             priorityQueue.add(it)
@@ -484,7 +487,6 @@ fun kth_largest_in_an_array(numbers: ArrayList<Int>, k: Int): Int {
     }
     return priorityQueue.peek()!!
 }
-
 
 fun online_median(stream: ArrayList<Int>): ArrayList<Int> {
     val retVal = ArrayList<Int>()
@@ -596,7 +598,8 @@ fun sortedSquares(nums: IntArray): IntArray {
     var bckPtr= nums.size-1
     var newArrPtr= nums.size-1
     while(fwdPtr<=bckPtr){
-        val fwdPtrSqVal = Math.pow(nums[fwdPtr].toDouble(),2.toDouble()).toInt()
+
+        val fwdPtrSqVal = nums[fwdPtr].toDouble().pow(2.toDouble()).toInt()
         val bckPtrSqVal = Math.pow(nums[bckPtr].toDouble(),2.toDouble()).toInt()
         retVal[newArrPtr--] = if(fwdPtrSqVal>bckPtrSqVal){
             fwdPtr++
@@ -821,6 +824,7 @@ fun reverseWords(s: String): String {
     val retVal = StringBuilder()
     words.forEach {
         retVal.append(reverse(it.toCharArray()))
+
     }
     return retVal.toString()
 }

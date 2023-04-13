@@ -245,7 +245,6 @@ fun orangesRotting(grid: Array<IntArray>): Int {
                 }
             }
             queueSize--
-
         }
         if (neighborAdded) {
             minuteCount++
@@ -299,7 +298,7 @@ fun updateMatrix(mat: Array<IntArray>): Array<IntArray> {
         neighbors.forEach { neighbor ->
             val row = point.x + neighbor[0]
             val col = point.y + neighbor[1]
-            if (row in 0 until rowSize && col < colSize && col >= 0 && mat[row][col] == -1) {
+            if (row in 0 until rowSize && col in 0 until colSize && mat[row][col] == -1) {
                 mat[row][col] = mat[point.x][point.y] + 1
                 queue.add(Point(row, col))
             }
@@ -506,29 +505,41 @@ fun floodFill(image: Array<IntArray>, sr: Int, sc: Int, color: Int): Array<IntAr
     return image
 }
 
+/*
+https://leetcode.com/problems/permutation-in-string/
+567. Permutation in String
+Medium
+9.6K
+308
+Companies
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+ */
 fun checkInclusion(s1: String, s2: String): Boolean {
 
-    var s1Ptr = 0
-    var s2Ptr = 0
-    while (s1Ptr < s1.length && s2Ptr < s2.length) {
-        if (s2[s2Ptr] == s1[s1Ptr]) {
-            var s1Ptr2 = s1Ptr - 1
-            var s2Ptr2 = s2Ptr + 1
-            while (s1Ptr2 >= 0 && s2Ptr2 < s2.length) {
-                if (s2[s2Ptr2] == s1[s1Ptr2]) {
-                    s2Ptr2++
-                    s1Ptr2--
-                }
-            }
-            if (s2Ptr2 == s2.length) {
-                return true
-            }
-
-        } else {
-            s1Ptr++
-        }
+    if (s1.length > s2.length) {
+        return false
     }
-    return false
+    if (s1.length == 0) {
+        return true
+    }
+    var arr1 = IntArray(26) { 0 }
+    var arr2 = IntArray(26) { 0 }
+    var i = 0
+    while (i < s1.length) {
+        arr1[s1[i] - 'a']++
+        arr2[s2[i] - 'a']++
+        i++
+    }
+    for (j in i..s2.length - 1) {
+        if (arr1.contentEquals(arr2)) {
+            return true
+        }
+        arr2[s2[j - i] - 'a']--
+        arr2[s2[j] - 'a']++
+    }
+    return arr1.contentEquals(arr2)
 
 }
 

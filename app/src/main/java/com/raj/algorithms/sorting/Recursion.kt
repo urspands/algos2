@@ -10,8 +10,8 @@ fun main() {
 //    permutationWithDup(arrayListOf(1, 1, 2))
 //    generateParentheses(3)
 //    combination(4,2)
-//    subSetCalWithPosition(4)
-    permute(intArrayOf(1, 3, 2))
+    subSetCalWithPosition(4)
+//    permute(intArrayOf(1, 3, 2))
 //    letterCasePermutation2("c")
 //    climbStairs(44)
     //TODO: 17.letter combination of phone
@@ -38,6 +38,9 @@ fun climbStairs(n: Int): Int {
     println(climbCount)
     return climbCount
 }
+/*
+a1b2->a1b2,A1b2,a1B2,A1B2
+ */
 fun letterCasePermutation2(s: String): List<String> {
     val result = ArrayList<String>()
     fun helper(pos:Int,slate:String){
@@ -62,7 +65,7 @@ https://leetcode.com/problems/permutations/description/?envType=study-plan&id=al
  */
 fun permute(nums: IntArray): List<List<Int>> {
     val result = ArrayList<ArrayList<Int>>()
-    fun helper(slate: ArrayList<Int>, temp: ArrayList<Int>, pos: Int) {
+    fun helper( temp: ArrayList<Int>, pos: Int) {
         if (pos==temp.size) {
             result.add(ArrayList(temp))
         } else {
@@ -71,14 +74,13 @@ fun permute(nums: IntArray): List<List<Int>> {
                 if(!hashSet.contains(temp[i])){
                     hashSet.add(temp[i])
                     swap(temp, i, pos)
-                    helper(ArrayList(slate), temp, pos + 1)
+                    helper( temp, pos + 1)
                     swap(temp, i, pos)
                 }
-
             }
         }
     }
-    helper(ArrayList(), ArrayList(nums.toMutableList()), 0)
+    helper(ArrayList(nums.toMutableList()), 0)
     println(result)
     return result
 }
@@ -121,6 +123,7 @@ fun combination(n: Int, k: Int): List<List<Int>> {
             slate.add(input[pos])
             helper(ArrayList(slate), pos + 1, input)
             slate.removeAt(slate.lastIndex)
+
             helper(ArrayList(slate), pos + 1, input)
         }
     }

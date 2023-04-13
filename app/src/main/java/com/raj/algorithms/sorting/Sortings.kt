@@ -3,6 +3,7 @@ package com.raj.algorithms.sorting
 import android.util.Log
 import kotlin.experimental.and
 import kotlin.experimental.or
+import kotlin.math.max
 import kotlin.math.pow
 
 object Sortings {
@@ -580,7 +581,7 @@ open fun find_integer(arr: ArrayList<Long>): Long? {
     }
 
     fun intersect(nums1: IntArray, nums2: IntArray): IntArray {
-        val retVal = IntArray(Math.max(nums1.size,nums2.size))
+        val retVal = IntArray(max(nums1.size,nums2.size))
         val hashMap = HashMap<Int,Int>()
 
         nums1.forEach{
