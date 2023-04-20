@@ -1,6 +1,7 @@
 package com.raj.algorithms.practicev2
 
 import java.util.*
+import kotlin.collections.HashSet
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.log2
@@ -545,25 +546,20 @@ fun checkInclusion(s1: String, s2: String): Boolean {
 
 //find the longest substring without repeated characters
 //example: abcdcef
-fun longestSubstringWithoutRepeat(input: String): String {
-    val list = ArrayList<Char>()
-    var currentPtr = 0
-    var runningPtr = 0
-    var currentSubstring = ""
-    var previousSubString = ""
-    while (runningPtr < input.length) {
-        if (currentSubstring.indexOf(input[runningPtr]) == -1) {
-            currentSubstring = currentSubstring.plus(input[runningPtr])
-        } else {
-            previousSubString =
-                if (currentSubstring.length > previousSubString.length) currentSubstring else previousSubString
-            currentPtr = currentSubstring.indexOf(input[runningPtr]) + 1
-            currentSubstring =
-                currentSubstring.subSequence(currentPtr, currentSubstring.length).toString()
-                    .plus(input[runningPtr])
+fun longestSubstringWithoutRepeat(input: String): Int {
+    val hashSet = HashSet<Char>()
+    var (left,right) = 0 to 0
+    var maxLength=0
+    while(right<input.length){
+        if(!hashSet.contains(input[right])){
+            hashSet.add(input[right])
+            right++
+            maxLength = maxOf(hashSet.size,maxLength)
+        }else{
+            hashSet.remove(input[left])
+            left++
         }
-
-        runningPtr++
     }
-    return if (currentSubstring.length > previousSubString.length) currentSubstring else previousSubString
+    return maxLength
+
 }
