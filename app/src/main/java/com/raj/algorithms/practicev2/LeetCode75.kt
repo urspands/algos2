@@ -13,6 +13,58 @@ fun main() {
     println("${decodeString("3[a]2[bc]")}")
 }
 
+data class GpsData(val gps:String,val timeStamp:Long)
+private val _cache = HashMap<Int,ArrayList<GpsData>>()
+fun setLocation(officerId:Int,location:String, timeStamp:Long){
+    val gpsData =  _cache.getOrDefault(officerId,ArrayList<GpsData>())
+    gpsData.add(GpsData(location,timeStamp))
+    _cache[officerId] = gpsData
+}
+
+fun getLocation(officerId:Int,timeStamp:Long):String{
+    val gpsData = _cache[officerId]
+    gpsData?.let{ it ->
+        it.sortBy{it.timeStamp}
+        for(i in it.indices){
+            if(it[i].timeStamp == timeStamp){
+                return it[i].gps
+            }else{
+                val previousIdx = i-1
+//       val nextIdx=i+1
+                if(previousIdx in it.indices){
+                    if(it[previousIdx].timeStamp < timeStamp && timeStamp< it[i].timeStamp){
+                        val diff = it[previousIdx].timeStamp+ (it[i].timeStamp - it[previousIdx].timeStamp)/2
+                        return if(it[i].timeStamp < diff) it[previousIdx].gps else it[i].gps
+                    }
+                }
+            }
+        }
+        return it[it.size-1].gps
+    }?:return ""
+
+}
+fun isValidBST(root: TreeNode?): Boolean {
+    var previousNode:TreeNode?=null
+    fun helper(root:TreeNode?):Boolean{
+        if(root==null){
+            return true
+        }
+        val isBst = helper(root.left)
+        if(previousNode!=null){
+            if(previousNode!!.`val`> root.`val`){
+                return false
+            }
+        }
+        previousNode= root
+        if(isBst){
+            return  helper(root.right)
+        }else{
+            return false
+        }
+
+    }
+    return helper(root)
+}
 fun decodeString(s: String): String {
     val numStack = Stack<Int>()
     val strStack = Stack<String>()

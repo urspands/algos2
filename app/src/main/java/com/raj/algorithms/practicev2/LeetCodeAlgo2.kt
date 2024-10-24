@@ -272,8 +272,8 @@ fun getProvinceCount(matrix: ArrayList<ArrayList<Int>>): Int {
 
     var provinceCount = 0
 
-    for (row in 0..matSize - 1) {
-        for (col in 0..matSize - 1) {
+    for (row in 0 until matSize) {
+        for (col in 0 until matSize) {
             if (matrix[row][col] == 1 && visitedArr[row][col] == 0) {
                 provinceCount++
                 helper(row, col)

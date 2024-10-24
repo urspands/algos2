@@ -5,7 +5,6 @@ import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayDeque
 import kotlin.math.pow
-import kotlin.system.measureTimeMillis
 
 fun main() {
 //    println("hello")
@@ -44,7 +43,7 @@ fun main() {
 //    val result = countingSort(arr)
 //
 //    println(result.joinToString(" "))
-//    println(caesarCipher("www.abc.xy", 87))
+    println(caesarCipher("www.abc.xy", 87))
 //    println(
 //        gridChallenge(
 //            arrayOf(
@@ -54,27 +53,27 @@ fun main() {
 //    )
 //    println("superDigit::${superDigit("9875", 4)}")
 //    println("isBalanced::${isBalanced("{(([])[])[]}{}")}")
-    println(
-        "find_top_k_frequent_elements::${
-            find_top_k_frequent_elements(
-                arrayListOf(
-                    1,
-                    2,
-                    3,
-                    2,
-                    4,
-                    3,
-                    1
-                ), 2
-            )
-        }"
-    )
-    kth_largest_in_an_array(arrayListOf(2,4,1,9,44,23,66,28,54),3)
-    var head = ListNode(1)
-    head.next= ListNode(2)
-    head.next!!.next=ListNode(3)
-    head.next!!.next!!.next=ListNode(4)
-    head.next!!.next!!.next!!.next=ListNode(5)
+//    println(
+//        "find_top_k_frequent_elements::${
+//            find_top_k_frequent_elements(
+//                arrayListOf(
+//                    1,
+//                    2,
+//                    3,
+//                    2,
+//                    4,
+//                    3,
+//                    1
+//                ), 2
+//            )
+//        }"
+//    )
+//    kth_largest_in_an_array(arrayListOf(2,4,1,9,44,23,66,28,54),3)
+//    var head = ListNode(1)
+//    head.next= ListNode(2)
+//    head.next!!.next=ListNode(3)
+//    head.next!!.next!!.next=ListNode(4)
+//    head.next!!.next!!.next!!.next=ListNode(5)
 
 //    removeNthFromEnd(head,2)
 //    checkInclusion()
@@ -182,7 +181,7 @@ fun caesarCipher(s: String, v: Int): String {
             } else {
                 charArray[i] = s[i] + k
             }
-        } else if ((value >= 'A' && value <= 'Z')) {
+        } else if ((value in 'A'..'Z')) {
             if ('Z' - value < k) {
                 charArray[i] = 'A' + (k - 1) - ('Z' - value)
             } else {
@@ -411,7 +410,6 @@ fun merge_k_lists(lists: ArrayList<LinkedListNode?>): LinkedListNode? {
     var previousNode = head
     while (minHeap.isNotEmpty()) {
         val min = minHeap.remove()
-        val currentNode = min
 
         if (head == null) {
             head = min.node
@@ -419,12 +417,12 @@ fun merge_k_lists(lists: ArrayList<LinkedListNode?>): LinkedListNode? {
         if (min.node?.next != null) {
             minHeap.add(Input(min?.node?.value, min?.node?.next))
         }
-        currentNode.node?.next = null
+        min.node?.next = null
         if (previousNode == null) {
-            previousNode = currentNode.node
+            previousNode = min.node
         } else {
-            previousNode.next = currentNode.node
-            previousNode = currentNode.node
+            previousNode.next = min.node
+            previousNode = min.node
         }
     }
     // Write your code here.
@@ -852,23 +850,38 @@ fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
     return head
 }
 fun lengthOfLongestSubstring(s: String): Int {
-    var prevLongest = ""
-    var currentSubString=""
-    s.forEachIndexed{i,value ->
-        if(currentSubString.indexOf(value)==-1){
-            currentSubString = currentSubString.plus(value)
+//    var prevLongest = ""
+//    var currentSubString=""
+//    s.forEachIndexed{i,value ->
+//        if(currentSubString.indexOf(value)==-1){
+//            currentSubString = currentSubString.plus(value)
+//        }else{
+//            if(prevLongest.length<currentSubString.length){
+//                prevLongest = currentSubString
+//            }
+//            val repeatCharIdx = currentSubString.indexOf(value)
+//            currentSubString = currentSubString.subSequence(repeatCharIdx+1,currentSubString.length).toString()
+//            currentSubString = currentSubString.plus(value)
+//        }
+//    }
+//    if(prevLongest.length<currentSubString.length){
+//        prevLongest = currentSubString
+//    }
+//    return prevLongest.length
+
+    var maxLength=Int.MIN_VALUE
+    val hashSet = HashSet<Char>()
+    var (left,right) = 0 to 0
+    while(right<s.length){
+        if(!hashSet.contains(s[right])){
+            hashSet.add(s[right])
+            right++
+            maxLength = maxOf(maxLength,hashSet.size)
         }else{
-            if(prevLongest.length<currentSubString.length){
-                prevLongest = currentSubString
-            }
-            val repeatCharIdx = currentSubString.indexOf(value)
-            currentSubString = currentSubString.subSequence(repeatCharIdx+1,currentSubString.length).toString()
-            currentSubString = currentSubString.plus(value)
+            hashSet.remove(s[left])
+            left++
         }
     }
-    if(prevLongest.length<currentSubString.length){
-        prevLongest = currentSubString
-    }
-    return prevLongest.length
+    return maxLength
 }
 
