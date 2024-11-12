@@ -10,9 +10,16 @@ fun main() {
 //            "y#f#o##f"
 //        )
 //    )
-    println("${decodeString("3[a]2[bc]")}")
+//    println("${decodeString("3[a]2[bc]")}")
+    println("${removeDuplicates(listOf(1,2,2,5,3,4,5,4,6,7,5))}")
 }
-
+fun removeDuplicates(numbers: List<Int>):List<Int>{
+    val hashSet = LinkedHashSet<Int>()
+    numbers.forEach{
+        hashSet.add(it)
+    }
+    return hashSet.toList()
+}
 data class GpsData(val gps:String,val timeStamp:Long)
 private val _cache = HashMap<Int,ArrayList<GpsData>>()
 fun setLocation(officerId:Int,location:String, timeStamp:Long){
